@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="chatApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js" charset="utf-8"></script>
+    <script src="/js/app/app.js" charset="utf-8"></script>
+    <script src="/js/app/services/socket.js" charset="utf-8"></script>
+    <script src="/js/app/controllers/main.js" charset="utf-8"></script>
+    <script src="/js/scripts.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="content" ng-controller="main">
+      <header>
+        <h1>{{message}}</h1>
+      </header>
+      <div class="chats container">
+
+        <div class="chat" ng-repeat="chat in chats">
+          <label for="">Chat: {{chat.id}}</label>
+          <div class="conversation" data-chat-id="{{chat.id}}">
+            <div class="message container" ng-repeat="msg in chat.messages">
+              <div class="message from">
+                <label for=""> {{ msg.from }}: </label>
+              </div>
+              <div class="message content">
+                <p>
+                  {{ msg.content }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-form" data-chat-id="{{chat.id}}">
+            <form data-chat-id={{chat.id}} ng-submit="sendMessage(chat.id)">
+              <input type="text" ng-model="chat.newMessage.from" value="" placeholder="from">
+              <input type="text" ng-model="chat.newMessage.content" value="" placeholder="message">
+              <button type="submit" name="button">Send</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
